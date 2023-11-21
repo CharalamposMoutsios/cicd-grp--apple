@@ -9,7 +9,7 @@ pipeline {
         stage('Clone repository') {
             steps {
                 script {
-                    git credentialsId: GITHUB_CREDENTIALS, url: 'https://github.com/nackc8/cicd-grp--apple.git'
+                    git credentialsId: 'github-access-token-id', url: 'https://github.com/nackc8/cicd-grp--apple.git'
                 }
             }
         }
