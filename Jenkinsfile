@@ -22,18 +22,18 @@ pipeline {
             }
         }
 
-        stage('Build image') {
-            steps {
-                script {
-                    sh 'docker pull py_flask_server'
-                }
-            }
-        }
-
         stage('Run pylint') {
             steps {
                 script {
                     sh 'pylint --rcfile=backend/.pylintrc backend/pingurl/*.py backend/app.py'
+                }
+            }
+        }
+
+        stage('Build image') {
+            steps {
+                script {
+                    sh 'docker pull py_flask_server'
                 }
             }
         }
