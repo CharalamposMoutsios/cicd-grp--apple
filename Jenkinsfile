@@ -3,14 +3,16 @@ pipeline {
 
     environment {
         GITHUB_CREDENTIALS = credentials('github-access-token-id')
-        GIT_TOOL = "Default"
+        GIT_EXECUTABLE = "${tool 'Default'}"
     }
 
     stages {
         stage('Clone repository') {
             steps {
                 script {
-                    git credentialsId: 'github-access-token-id', url: 'https://github.com/nackc8/cicd-grp--apple.git', gitTool: GIT_TOOL
+                    withEnv(["GIT_ASKPASS=echo", "GIT_EXECUTABLE=${GIT_EXECUTABLE}"]) {
+                        git credentialsId: 'github-access-token-id', url: 'https://github.com/nackc8/cicd-grp--apple.git'
+                    }
                 }
             }
         }
