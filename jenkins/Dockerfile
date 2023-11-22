@@ -1,12 +1,55 @@
-FROM jenkins/jenkins:2.426.1-jdk17
+# Use the Jenkins base image with JDK 17
+FROM jenkins/jenkins:jdk17
+
+# Run as root user to install packages
 USER root
-RUN apt-get update && apt-get install -y lsb-release
-RUN curl -fsSLo /usr/share/keyrings/docker-archive-keyring.asc \
-  https://download.docker.com/linux/debian/gpg
-RUN echo "deb [arch=$(dpkg --print-architecture) \
-  signed-by=/usr/share/keyrings/docker-archive-keyring.asc] \
-  https://download.docker.com/linux/debian \
-  $(lsb_release -cs) stable" > /etc/apt/sources.list.d/docker.list
-RUN apt-get update && apt-get install -y docker-ce-cli
+
+# Install Docker CLI and Python
+RUN apt-get update && \
+    apt-get -y install apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common && \
+    curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
+    add-apt-repository \
+    "deb [arch=amd64] https://download.docker.com/linux/debian \
+    $(lsb_release -cs) stable" && \
+    apt-get update && \
+    apt-get -y install docker-ce-cli python3-pip python3 python3.11-venv
+
+# Install necessary Jenkins plugins
+RUN jenkins-plugin-cli --plugins \
+    "github" \
+    "github-branch-source" \
+    "github-api" \
+    "git" \
+    "git-client" \
+    "scm-api" \
+    "pipeline-github-lib" \
+    "workflow-aggregator" \
+    "workflow-job" \
+    "workflow-multibranch" \
+    "pipeline-model-api" \
+    "pipeline-model-definition" \
+    "pipeline-model-extensions" \
+    "pipeline-build-step" \
+    "pipeline-stage-step" \
+    "pipeline-input-step" \
+    "pipeline-milestone-step" \
+    "pipeline-rest-api" \
+    "credentials-binding" \
+    "credentials" \
+    "ssh-credentials" \
+    "plain-credentials" \
+    "timestamper" \
+    "ws-cleanup" \
+    "build-timeout" \
+    "script-security" \
+    "workflow-scm-step"
+
+# Disable Jenkins setup wizard
+ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
+
+# Switch back to the Jenkins user
 USER jenkins
-RUN jenkins-plugin-cli --plugins "blueocean docker-workflow"
