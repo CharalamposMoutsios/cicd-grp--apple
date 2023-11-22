@@ -19,7 +19,7 @@ pipeline {
             steps {
                 script {
                     // Installing pip
-                    sh 'sudo apt-get update && sudo apt-get install -y python3-pip'
+                    sh 'sudo apt-get install -y python3-pip'
 
                     // Installing pylint
                     sh 'pip install pylint'
