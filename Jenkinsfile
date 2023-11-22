@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        GITHUB_CREDENTIALS = credentials('github-access-token-id')
+        // GITHUB_CREDENTIALS = credentials('github-access-token-id')
         GIT_EXECUTABLE = "${tool 'Default'}"
     }
 
@@ -10,9 +10,7 @@ pipeline {
         stage('Clone repository') {
             steps {
                 script {
-                    withEnv(["GIT_ASKPASS=echo", "GIT_EXECUTABLE=${GIT_EXECUTABLE}"]) {
-                        git credentialsId: 'github-access-token-id', url: 'https://github.com/nackc8/cicd-grp--apple.git'
-                    }
+                    git url: 'https://github.com/nackc8/cicd-grp--apple.git', branch: 'oskar', credentialsId: 'github-access-token-id'
                 }
             }
         }
