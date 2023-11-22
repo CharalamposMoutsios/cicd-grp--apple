@@ -421,16 +421,36 @@ confidence=HIGH,
 # --enable=similarities". If you want to run only the classes checker, but have
 # no Warning level messages displayed, use "--disable=all --enable=classes
 # --disable=W".
+
+
+# Disable raw-checker-failed
 disable=raw-checker-failed,
+# Disable bad-inline-option
         bad-inline-option,
+# Disable locally-disabled
         locally-disabled,
+# Disable file-ignored
         file-ignored,
+# Disable suppressed-message
         suppressed-message,
+# Disable useless-suppression
         useless-suppression,
+# Disable deprecated-pragma
         deprecated-pragma,
+# Disable use-symbolic-message-instead
         use-symbolic-message-instead,
+# Disable use-implicit-booleaness-not-comparison-to-string
         use-implicit-booleaness-not-comparison-to-string,
-        use-implicit-booleaness-not-comparison-to-zero
+# Disable use-implicit-booleaness-not-comparison-to-zero
+        use-implicit-booleaness-not-comparison-to-zero,
+# Disable missing-docstring
+        missing-docstring
+
+#By doing this, you're telling Pylint to ignore these specific
+#messages when linting your code. 
+#It provides flexibility to customize the linting rules based on your 
+#team's preferences and coding standards.
+
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
