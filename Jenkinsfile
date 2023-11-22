@@ -18,6 +18,10 @@ pipeline {
         stage('Install pylint') {
             steps {
                 script {
+                    // Installing pip
+                    sh 'apt-get update && apt-get install -y python3-pip'
+
+                    // Installing pylint
                     sh 'pip install pylint'
                 }
             }
