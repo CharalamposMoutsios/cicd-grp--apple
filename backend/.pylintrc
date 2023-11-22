@@ -443,10 +443,6 @@ disable=raw-checker-failed,
         use-implicit-booleaness-not-comparison-to-string,
 # Disable use-implicit-booleaness-not-comparison-to-zero
         use-implicit-booleaness-not-comparison-to-zero,
-# Disable bad-whitespace
-        bad-whitespace,
-# Disable bad-continuation
-        bad-continuation,
 # Disable missing-docstring
         missing-docstring
 
