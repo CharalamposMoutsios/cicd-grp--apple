@@ -14,7 +14,7 @@ updates:
       time: "08:45"
       # Use Sweden Standard Time (UTC +01:00)
       timezone: "Europe/Stockholm"
-#
+      
   # Maintain dependencies for pip.
   - package-ecosystem: "pip"
     directory: "/"
