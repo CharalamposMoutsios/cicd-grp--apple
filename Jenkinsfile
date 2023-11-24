@@ -10,13 +10,12 @@ pipeline {
             }
         }
 
-        stage('Creating virtual environment') {
+
+        stage('Installing requirements.txt') {
             steps {
-                echo "Creating venv..."
+                echo "Installing requirements"
                 sh '''
-                cd backend && rm -rf venv && python3 -m venv venv
-                chmod +x venv/bin/activate
-                venv/bin/activate && pip install -r requirements.txt
+                cd backend && pip install -r requirements.txt
                 '''
             }
         }
@@ -45,7 +44,7 @@ pipeline {
                 script {
                     echo "Pytesting backend..."
                     sh '''
-                    source ./backend/venv/bin/activate && pytest backend/
+                    pytest backend/
                     '''
                 }
             }
@@ -55,7 +54,7 @@ pipeline {
             steps {
                 echo "Pylinting the code..."
                 sh '''
-                source ./backend/venv/bin/activate && pylint --fail-under 10 backend/pingurl/ --rcfile=backend/.pylintrc
+                cd backend && pylint --fail-under 10 pingurl/ --rcfile=backend/.pylintrc
                 '''
             }
         }
@@ -70,3 +69,15 @@ pipeline {
         }
     }
 }
+
+
+        // stage('Creating virtual environment') {
+        //     steps {
+        //         echo "Creating venv..."
+        //         sh '''
+        //         cd backend && rm -rf venv && python3 -m venv venv
+        //         chmod +x venv/bin/activate
+        //         venv/bin/activate && pip install -r requirements.txt
+        //         '''
+        //     }
+        // }
