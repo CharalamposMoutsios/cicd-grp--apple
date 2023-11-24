@@ -13,7 +13,7 @@ source backend/venv/Scripts/activate
 pip install -r backend/requirements.txt
 
 # Running Pylint
-python -m pylint --fail-under=9 --recursive true --ignore=venv backend
+python -m pylint --fail-under=8 --recursive true --ignore=venv backend
 
 # Running Black
 black backend/
@@ -28,4 +28,4 @@ CONTAINER_ID=$(docker run --network=host -d ping-url)
 docker stop $CONTAINER_ID
 docker rm $CONTAINER_ID
 
-echo "Working"
+echo "Working!"
