@@ -1,11 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        // GITHUB_CREDENTIALS = credentials('github-access-token-id')
-        GIT_EXECUTABLE = "${tool 'Default'}"
-    }
-
     stages {
         stage('Clone repository') {
             steps {
@@ -15,30 +10,21 @@ pipeline {
             }
         }
 
-        stage('Install pylint') {
+        stage('Creating virtual environment') {
             steps {
-                script {
-                    // Installing pip
-                    sh 'sudo apt-get install -y python3-pip'
-
-                    // Installing pylint
-                    sh 'pip install pylint'
-                }
+                echo "Creating venv..."
+                sh '''
+                cd backend && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt
+                '''
             }
         }
 
-        stage('Run pylint') {
-            steps {
-                script {
-                    sh 'pylint --rcfile=backend/.pylintrc backend/pingurl/*.py backend/app.py'
-                }
-            }
-        }
 
-        stage('Build image') {
+        stage('Building docker image') {
             steps {
                 script {
-                    sh 'docker pull py_flask_server'
+                    echo "Building image..."
+                    sh 'docker build -t py-flask-server -f backend/Dockerfile .'
                 }
             }
         }
@@ -46,13 +32,37 @@ pipeline {
         stage('Start container') {
             steps {
                 script {
-                    sh 'docker run -d --name jenkins_pingurl -p 5000:5000 py_flask_server'
+                    echo "Starting container..."
+                    sh 'docker run -d -p 5000:5000 --name pingurl-server py-flask-server'
                 }
+            }
+        }
+
+        stage('Run Pytest') {
+            steps {
+                script {
+                    echo "Pytesting backend..."
+                    sh '''
+                    source ./backend/venv/bin/activate && pytest backend/
+                    '''
+                }
+            }
+        }
+
+        stage('Run Pylint') {
+            steps {
+                echo "Pylinting the code..."
+                sh '''
+                source ./backend/venv/bin/activate && pylint --fail-under 10 backend/pingurl/ --rcfile=backend/.pylintrc
+                '''
             }
         }
     }
 
     post {
+        success {
+            echo "Build succeeded, woop woop!"
+        }
         failure {
             echo 'Build failed. Try to fix it?'
         }
