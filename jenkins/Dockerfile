@@ -1,55 +1,42 @@
-# Use the Jenkins base image with JDK 17
-FROM jenkins/jenkins:jdk17
+# Use the official Jenkins LTS image as a base image
+FROM jenkins/jenkins:lts
 
-# Run as root user to install packages
+# Switch to root user to install packages
 USER root
 
-# Install Docker CLI and Python
+# Install Docker prerequisites
 RUN apt-get update && \
-    apt-get -y install apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg-agent \
-    software-properties-common && \
-    curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
-    add-apt-repository \
-    "deb [arch=amd64] https://download.docker.com/linux/debian \
-    $(lsb_release -cs) stable" && \
-    apt-get update && \
-    apt-get -y install docker-ce-cli python3-pip python3 python3.11-venv
+    apt-get install -y apt-transport-https \
+                       ca-certificates \
+                       curl \
+                       gnupg2 \
+                       software-properties-common
 
-# Install necessary Jenkins plugins
-RUN jenkins-plugin-cli --plugins \
-    "github" \
-    "github-branch-source" \
-    "github-api" \
-    "git" \
-    "git-client" \
-    "scm-api" \
-    "pipeline-github-lib" \
-    "workflow-aggregator" \
-    "workflow-job" \
-    "workflow-multibranch" \
-    "pipeline-model-api" \
-    "pipeline-model-definition" \
-    "pipeline-model-extensions" \
-    "pipeline-build-step" \
-    "pipeline-stage-step" \
-    "pipeline-input-step" \
-    "pipeline-milestone-step" \
-    "pipeline-rest-api" \
-    "credentials-binding" \
-    "credentials" \
-    "ssh-credentials" \
-    "plain-credentials" \
-    "timestamper" \
-    "ws-cleanup" \
-    "build-timeout" \
-    "script-security" \
-    "workflow-scm-step"
+# Add Docker GPG key
+RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
 
-# Disable Jenkins setup wizard
-ENV JAVA_OPTS="-Djenkins.install.runSetupWizard=false"
+# Add Docker repository
+RUN add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"
 
-# Switch back to the Jenkins user
+# Install Docker
+RUN apt-get update && \
+    apt-get install -y docker-ce docker-ce-cli containerd.io
+
+RUN apt-get install -y python3 python3-pip python3.11-venv
+
+# Adding jenkins to docker group
+RUN usermod -aG docker jenkins
+
+# Switch back to the jenkins user
 USER jenkins
+
+# Set Jenkins configurations
+ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
+ENV CASC_JENKINS_CONFIG /var/jenkins_home/casc.yaml
+
+# Copy and install Jenkins plugins
+COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
+RUN jenkins-plugin-cli -f /usr/share/jenkins/ref/plugins.txt
+
+# Copy Jenkins configuration as code
+COPY casc.yaml /var/jenkins_home/casc.yaml
