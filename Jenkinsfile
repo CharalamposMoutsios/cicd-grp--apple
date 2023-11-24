@@ -14,7 +14,7 @@ pipeline {
             steps {
                 echo "Creating venv..."
                 sh '''
-                cd backend && python3 -m venv venv
+                cd backend && rm -rf venv && python3 -m venv venv
                 chmod +x venv/bin/activate
                 venv/bin/activate && pip install -r requirements.txt
                 '''
