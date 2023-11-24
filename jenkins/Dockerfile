@@ -23,7 +23,7 @@ RUN apt-get update && \
     apt-get install -y docker-ce docker-ce-cli containerd.io
 
 # Installing python & dependencies
-RUN apt-get install -y python3 python3-pip python3.11-venv
+RUN apt-get install -y python3 python3-pip
 
 # Adding jenkins to docker group
 RUN usermod -aG docker jenkins
