@@ -28,12 +28,18 @@ pipeline {
         //     }
         // }
 
+        stage('Debugging') {
+            steps {
+                sh 'ls -la'
+                sh 'ls -la backend'
+            }
+        }
 
         stage('Building docker image') {
             steps {
                 script {
                     echo "Building image..."
-                    sh 'docker build -t py-flask-server -f backend/Dockerfile .'
+                    sh 'docker build -t py-flask-server -f backend/Dockerfile backend'
                 }
             }
         }
