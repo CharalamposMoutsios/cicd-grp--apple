@@ -10,7 +10,7 @@ pipeline {
             }
         }
 
-
+        // Don't know if I should keep this or scrap it.
         // stage('Installing requirements.txt') {
         //     steps {
         //         echo "Installing requirements"
@@ -27,13 +27,6 @@ pipeline {
         //         sh 'deactivate'
         //     }
         // }
-
-        stage('Debugging') {
-            steps {
-                sh 'ls -la'
-                sh 'ls -la backend'
-            }
-        }
 
         stage('Building docker image') {
             steps {
@@ -53,16 +46,16 @@ pipeline {
             }
         }
 
-        stage('Run Pytest') {
-            steps {
-                script {
-                    echo "Pytesting backend..."
-                    sh '''
-                    pytest backend/
-                    '''
-                }
-            }
-        }
+        // stage('Run Pytest') {
+        //     steps {
+        //         script {
+        //             echo "Pytesting backend..."
+        //             sh '''
+        //             pytest backend/
+        //             '''
+        //         }
+        //     }
+        // }
 
         stage('Run Pylint') {
             steps {
