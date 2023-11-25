@@ -61,7 +61,7 @@ pipeline {
             steps {
                 echo "Pylinting the code..."
                 sh '''
-                cd backend && pylint --fail-under 10 pingurl/ --rcfile=backend/.pylintrc
+                cd backend && pylint --fail-under 10 pingurl/ --rcfile=./.pylintrc
                 '''
             }
         }
