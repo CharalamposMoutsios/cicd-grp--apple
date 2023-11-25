@@ -14,9 +14,17 @@ pipeline {
         stage('Installing requirements.txt') {
             steps {
                 echo "Installing requirements"
-                sh '''
-                cd backend && pip install -r requirements.txt
-                '''
+                // Create a virtual environment
+                sh 'python3 -m venv venv'
+
+                // Activate the virtual environment
+                sh 'source venv/bin/activate'
+
+                // Install requirements inside the virtual environment
+                sh 'pip install -r backend/requirements.txt'
+
+                // Deactivate the virtual environment
+                sh 'deactivate'
             }
         }
 
