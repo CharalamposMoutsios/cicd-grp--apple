@@ -27,7 +27,6 @@ RUN apt-get install -y python3 python3-pip python3.11-venv
 
 # Adding jenkins & admin users to docker group
 RUN usermod -aG docker jenkins
-RUN usermod -aG docker admin
 
 # Switch back to the jenkins user
 USER jenkins
