@@ -12,5 +12,12 @@ services:
       - JENKINS_ADMIN_ID=admin
       - JENKINS_ADMIN_PASSWORD=password
       - JENKINS_OPTS=--httpPort=8080
+    networks:
+      - jenkins_default
+
+networks:
+  jenkins_default:
+    driver: bridge
+    
 volumes:
   jenkins-data:
