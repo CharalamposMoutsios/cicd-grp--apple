@@ -14,6 +14,7 @@ pipeline {
             steps {
                 script {
                     echo "Building image..."
+                    sh 'hostname'
                     sh 'docker build -t py-flask-server -f backend/Dockerfile backend'
                 }
             }
@@ -23,6 +24,7 @@ pipeline {
             steps {
                 script {
                     echo "Starting container..."
+                    sh 'hostname'
                     sh 'docker run -d -p 5000:5000 --network=jenkins --name pingurl-server py-flask-server'
                 }
             }
@@ -32,6 +34,7 @@ pipeline {
             steps {
                 script {
                     echo "Pytesting watched-url..."
+                    sh 'hostname'
                     sh '''
                     pytest ./backend/tests/test_api_req.py
                     '''
@@ -42,6 +45,7 @@ pipeline {
         stage('Run Pylint') {
             steps {
                 echo "Pylinting the code..."
+                sh 'hostname'
                 sh '''
                 cd backend && pylint --fail-under 6 pingurl/ --rcfile=./.pylintrc
                 '''
@@ -51,6 +55,7 @@ pipeline {
         stage('Stop container') {
             steps {
                 script {
+                    sh 'hostname'
                     sh '''
                     docker stop pingurl-server
                     '''
