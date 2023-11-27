@@ -6,11 +6,10 @@ from pingurl.ping import send_ping
 def add_watched_url(watched_url):
     if not isinstance(watched_url, WatchedUrl):
         raise ValueError("watched_url must be a WatchedUrl instance")
-    
     ping_data = send_ping(watched_url)
 
     if not ping_data.ok() and not watched_url.force:
-        raise AddWatchedUrlError("Ping failed and force is false")  
+        raise AddWatchedUrlError("Ping failed and force is false")
 
     url_id = persistance.add_watched_url(watched_url)
 
