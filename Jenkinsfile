@@ -10,23 +10,6 @@ pipeline {
             }
         }
 
-
-        stage('Setup') {
-            steps {
-                script {
-                    // Create a virtual environment
-                    sh 'python -m venv venv'
-                    
-                    // Activate the virtual environment
-                    sh 'source venv/bin/activate'
-
-                    // Install project dependencies
-                    sh 'pip install -r ./requirements.txt'
-                }
-            }
-        }
-
-
         stage('Building docker image') {
             steps {
                 script {
