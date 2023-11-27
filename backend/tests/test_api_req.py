@@ -1,7 +1,7 @@
 import requests
 
 
-API_URL = "http://localhost:5000"
+API_URL = "http://172.19.0.2:5000"
 
 
 def test_set_watched_url():
