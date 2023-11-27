@@ -30,6 +30,16 @@ pipeline {
             }
         }
 
+        stage('Contacting pingurl server') {
+            steps {
+                script {
+                    echo "Contacting pingurl..."
+                    sh 'hostname'
+                    sh 'curl pingurl-server.jenkins_jenkins_default:5000'
+                }
+            }
+        }
+
         stage('Run Pytest') {
             steps {
                 script {
