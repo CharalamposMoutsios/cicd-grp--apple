@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     echo "Starting container..."
-                    sh 'docker run -d -p 5000:5000 --name pingurl-server py-flask-server'
+                    sh 'docker run -d -p 5000:5000 --network=jenkins --name pingurl-server py-flask-server'
                 }
             }
         }
