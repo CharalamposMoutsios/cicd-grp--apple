@@ -10,23 +10,22 @@ pipeline {
             }
         }
 
-        // Don't know if I should keep this or scrap it.
-        // stage('Installing requirements.txt') {
-        //     steps {
-        //         echo "Installing requirements"
-        //         // Create a virtual environment
-        //         sh 'python3 -m venv venv'
 
-        //         // Activate the virtual environment
-        //         sh 'source venv/bin/activate'
+        stage('Setup') {
+            steps {
+                script {
+                    // Create a virtual environment
+                    sh 'python -m venv venv'
+                    
+                    // Activate the virtual environment
+                    sh 'source venv/bin/activate'
 
-        //         // Install requirements inside the virtual environment
-        //         sh 'pip install -r backend/requirements.txt'
+                    // Install project dependencies
+                    sh 'pip install -r ./requirements.txt'
+                }
+            }
+        }
 
-        //         // Deactivate the virtual environment
-        //         sh 'deactivate'
-        //     }
-        // }
 
         stage('Building docker image') {
             steps {
@@ -86,6 +85,24 @@ pipeline {
         }
     }
 }
+
+        // Don't know if I should keep this or scrap it.
+        // stage('Installing requirements.txt') {
+        //     steps {
+        //         echo "Installing requirements"
+        //         // Create a virtual environment
+        //         sh 'python3 -m venv venv'
+
+        //         // Activate the virtual environment
+        //         sh 'source venv/bin/activate'
+
+        //         // Install requirements inside the virtual environment
+        //         sh 'pip install -r backend/requirements.txt'
+
+        //         // Deactivate the virtual environment
+        //         sh 'deactivate'
+        //     }
+        // }
 
 
         // stage('Creating virtual environment') {
