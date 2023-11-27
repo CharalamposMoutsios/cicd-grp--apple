@@ -18,6 +18,9 @@ python -m pylint --fail-under=8 --recursive true --ignore=venv backend
 # Running Black
 black backend/
 
+# Adding run pytest
+python -m pytest backend/tests/
+
 # Build docker image ping-url .
 docker build -t ping-url .
 
