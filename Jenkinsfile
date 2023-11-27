@@ -51,7 +51,7 @@ pipeline {
                 script {
                     echo "Pytesting watched-url..."
                     sh '''
-                    pytest backend/test_api_req.py
+                    pytest ./backend/test_api_req.py
                     '''
                 }
             }
