@@ -46,16 +46,16 @@ pipeline {
             }
         }
 
-        // stage('Run Pytest') {
-        //     steps {
-        //         script {
-        //             echo "Pytesting backend..."
-        //             sh '''
-        //             pytest backend/
-        //             '''
-        //         }
-        //     }
-        // }
+        stage('Run Pytest') {
+            steps {
+                script {
+                    echo "Pytesting watched-url..."
+                    sh '''
+                    pytest backend/test_api_req.py
+                    '''
+                }
+            }
+        }
 
         stage('Run Pylint') {
             steps {
@@ -63,6 +63,16 @@ pipeline {
                 sh '''
                 cd backend && pylint --fail-under 6 pingurl/ --rcfile=./.pylintrc
                 '''
+            }
+        }
+
+        stage('Stop container') {
+            steps {
+                script {
+                    sh '''
+                    docker stop pingurl-server
+                    '''
+                }
             }
         }
     }
