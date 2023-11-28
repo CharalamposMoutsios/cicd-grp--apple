@@ -10,6 +10,8 @@ pipeline {
             }
         }
 
+        // I have sh 'hostname' in each step for debugging connection issues between Jenkins & Flask
+
         stage('Building docker image') {
             steps {
                 script {
