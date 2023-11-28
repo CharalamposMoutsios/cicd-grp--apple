@@ -33,6 +33,9 @@ pipeline {
         stage('Contacting pingurl server') {
             steps {
                 script {
+                    // Added this step in attempts to establish connection between Jenkins and Flask
+                    // There have been connection issues between the two when attempting to run
+                    // the 'Run Pytest' step, hoping this could maybe give some insight into IP, etc.
                     echo "Contacting pingurl..."
                     sh 'hostname'
                     sh 'curl pingurl-server.jenkins_jenkins_default:5000'
