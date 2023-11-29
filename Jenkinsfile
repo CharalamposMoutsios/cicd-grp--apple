@@ -49,12 +49,7 @@ pipeline {
             steps {
                 script {
                     echo "Pytesting watched-url..."
-                    sh 'hostname'
-                    sh 'echo "Shell: $SHELL"'
-                    sh 'source venv/bin/activate'
-                    sh '''
-                    pytest ./backend/tests/test_api_req.py
-                    '''
+                    sh 'pytest_step.sh'
                 }
             }
         }
