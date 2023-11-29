@@ -1,5 +1,3 @@
-# backend/tests/test_watched_url.py
-
 from datetime import datetime
 from pingurl.ping import WatchedUrl
 
