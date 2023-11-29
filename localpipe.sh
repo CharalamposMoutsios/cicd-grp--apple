@@ -28,6 +28,7 @@ pytest ./backend/tests/test_ping.py
 pytest ./backend/tests/test_send_ping_timeout.py
 pytest ./backend/tests/test_watched_url.py
 pytest ./backend/tests/test_watchurl.py
+pytest ./backend/tests/test_persistance.py
 
 # Build docker image ping-url .
 docker build -t ping-url .
