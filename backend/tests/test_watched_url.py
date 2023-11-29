@@ -4,7 +4,7 @@ from pingurl.ping import WatchedUrl
 
 def test_watched_url():
     start_time = datetime.now()
-    force = False
+    force = True
     interval = 60
     custom_url = "http://custom-example.com"
 
