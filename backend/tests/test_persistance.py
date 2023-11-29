@@ -4,6 +4,7 @@ from datetime import datetime, timedelta, timezone
 from pingurl.models import WatchedUrl, PingData
 # Your code her
 from pingurl.persistance import (
+    pings,
     WatchedUrlNotFoundError,
     add_watched_url,
     get_watched_url,
@@ -67,3 +68,37 @@ def test_get_url_ids():
     assert len(url_ids) == 4
     assert url_id1 in url_ids
     assert url_id2 in url_ids
+
+
+def test_get_stats():
+    watched_url1 = WatchedUrl(
+        activate_at=datetime.now(),
+        force=True,
+        url="http://example.com",
+        period_sec=60,
+        url_id=None,
+    )
+    watched_url2 = WatchedUrl(
+        activate_at=datetime.now(),
+        force=True,
+        url="http://example.se",
+        period_sec=60,
+        url_id=None,
+    )
+    add_watched_url(watched_url1)
+    add_watched_url(watched_url2)
+    ping_data1 = PingData(
+        pinged_at=datetime.now(),
+        response_time_sec=timedelta(seconds=1),
+        url_id=0,
+        status_code=200)
+    ping_data2 = PingData(
+        pinged_at=datetime.now(),
+        response_time_sec=timedelta(seconds=1),
+        url_id=1,
+        status_code=200)
+    add_ping_data(ping_data1)
+    add_ping_data(ping_data2)
+    stats = get_stats()
+    assert stats["watchedUrls"] == 6
+    assert stats["pings"] == 2
