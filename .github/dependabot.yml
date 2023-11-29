@@ -23,4 +23,4 @@ updates:
       # Check for pip updates.
       time: "08:45"
       # Use Sweden Standard Time (UTC +01:00)
-      timezone: "Europe/Stockholm "
+      timezone: "Europe/Stockholm"
