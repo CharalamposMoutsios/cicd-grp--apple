@@ -47,3 +47,23 @@ def test_delete_watched_url():
     delete_watched_url(url_id)
     with pytest.raises(WatchedUrlNotFoundError):
         get_watched_url(url_id)
+
+def test_get_url_ids():
+    watched_url1 = WatchedUrl(
+        activate_at=datetime.now(),
+        force=True,
+        url="http://example.com",
+        period_sec=60,
+        url_id=None)
+    watched_url2 = WatchedUrl(
+        activate_at=datetime.now(),
+        force=True,
+        url="http://example.se",
+        period_sec=60,
+        url_id=None)
+    url_id1 = add_watched_url(watched_url1)
+    url_id2 = add_watched_url(watched_url2)
+    url_ids = get_url_ids()
+    assert len(url_ids) == 4
+    assert url_id1 in url_ids
+    assert url_id2 in url_ids
