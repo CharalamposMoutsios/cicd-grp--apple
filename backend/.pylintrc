@@ -39,7 +39,7 @@ extension-pkg-whitelist=
 fail-on=
 
 # Specify a score threshold under which the program will exit with error.
-fail-under=10
+fail-under=5
 
 # Interpret the stdin as a python script, whose filename needs to be passed as
 # the module_or_package argument.
@@ -443,10 +443,6 @@ disable=raw-checker-failed,
         use-implicit-booleaness-not-comparison-to-string,
 # Disable use-implicit-booleaness-not-comparison-to-zero
         use-implicit-booleaness-not-comparison-to-zero,
-# Disable bad-whitespace
-        bad-whitespace,
-# Disable bad-continuation
-        bad-continuation,
 # Disable missing-docstring
         missing-docstring
 

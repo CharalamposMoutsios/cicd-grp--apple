@@ -15,7 +15,7 @@ def send_ping(watched_url: WatchedUrl) -> PingData:
 
     status_code = None
     response_time = None
-
+#
     # Do some "rough" status code mapping for requests exceptions so that each
     # ping has a status code.
     try:
