@@ -61,4 +61,16 @@ def test_ping_data_to_dict(ping_data_fixture):
 @patch("pingurl.models.PingData", MagicMock)
 def test_ping_data_ok(ping_data_fixture):
     assert ping_data_fixture.ok()
-    
+
+@patch("pingurl.models.validators.url", return_value=False)
+def test_invalid_url(mock_validators_url):
+    with pytest.raises(ValueError, match="url must be a valid URL string"):
+        WatchedUrl(
+            activate_at=datetime(2023, 1, 1),
+            force=True,
+            period_sec=60,
+            url="invalid_url",
+            url_id=1,
+        )
+
+    mock_validators_url.assert_called_once_with("invalid_url")
