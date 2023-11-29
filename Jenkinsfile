@@ -26,7 +26,11 @@ pipeline {
             steps {
                 script {
                     echo "Stopping & removing old pingurl-server"
-                    sh 'docker_step.sh'
+                    sh '''
+                    pwd &&
+                    cd cicd-grp--apple &&
+                    ./docker_step.sh
+                    '''
                 }
             }
         }
