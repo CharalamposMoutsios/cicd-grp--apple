@@ -1,5 +1,3 @@
-# backend/tests/test_delete_url_route.py
-
 from pingurl import app, persistance
 from flask import Flask
 
