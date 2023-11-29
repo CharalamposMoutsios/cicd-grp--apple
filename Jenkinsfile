@@ -22,6 +22,15 @@ pipeline {
             }
         }
 
+        stage('Removing previous container') {
+            steps {
+                script {
+                    echo "Stopping & removing old pingurl-server"
+                    sh 'docker_step.sh'
+                }
+            }
+        }
+
         stage('Start container') {
             steps {
                 script {
