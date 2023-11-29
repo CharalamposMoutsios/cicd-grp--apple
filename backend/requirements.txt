@@ -19,4 +19,4 @@ pytest
 black
 pylint
 requests
-#
+pytest-mock==3.12.0

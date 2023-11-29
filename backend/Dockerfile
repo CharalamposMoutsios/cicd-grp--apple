@@ -1,9 +1,13 @@
-FROM python
+FROM python:3.10
 
 WORKDIR /app
 
+COPY ./requirements.txt .
+
+RUN pip install -r ./requirements.txt
+
 COPY . .
 
-RUN pip install Flask apscheduler validators requests
+EXPOSE 5000
 
-ENTRYPOINT flask run --host=0.0.0.0
+CMD ["flask", "run", "--host=0.0.0.0"]
