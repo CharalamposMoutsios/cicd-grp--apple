@@ -62,7 +62,7 @@ pipeline {
             steps {
                 script {
                     echo "Pytesting watched-url..."
-                    sh 'pytest_step.sh'
+                    sh './pytest_step.sh'
                 }
             }
         }
