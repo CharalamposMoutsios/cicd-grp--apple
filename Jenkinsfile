@@ -2,6 +2,15 @@ pipeline {
     agent any
 
     stages {
+
+        stage('Checkout SCM') {
+            steps {
+                script {
+                    checkout scm
+                }
+            }
+        }
+
         stage('Clone repository') {
             steps {
                 script {
@@ -70,6 +79,13 @@ pipeline {
                     '''
                 }
             }
+        }
+    }
+
+    options {
+        buildDiscarder(logRotator(artifactDaysToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5', artifactNumToKeepStr: '5'))
+        triggers {
+            githubPush()
         }
     }
 
