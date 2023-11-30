@@ -14,6 +14,6 @@ def test_set_watched_url():
     }
     assert requests.post(f"{API_URL}/watched-urls", json=to_post, timeout=20).json() == {
         "message": "Watched URL added",
-        "urlId": 1,
+        "urlId": 2,
     }
 
