@@ -73,7 +73,7 @@ pipeline {
             }
         }
 
-        //stage('Stop container') {
+        stage('Stop container') {
             steps {
                 script {
                     sh '''
