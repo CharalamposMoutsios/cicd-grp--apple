@@ -6,7 +6,7 @@ echo "Shell: $SHELL"
 
 # Running get_container_ip.sh to get the CONTAINER_IP variable
 # used by test_api_req.py
-#source ./get_container_ip.sh
+source ./get_container_ip.sh
 
 # Creating venv
 python3 -m venv venv
