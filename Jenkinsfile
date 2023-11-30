@@ -1,6 +1,14 @@
 pipeline {
     agent any
 
+    options {
+        buildDiscarder(logRotator(artifactDaysToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5', artifactNumToKeepStr: '5'))
+    }
+
+    triggers {
+        githubPush()
+    }
+
     stages {
 
         stage('Checkout SCM') {
@@ -79,13 +87,6 @@ pipeline {
                     '''
                 }
             }
-        }
-    }
-
-    options {
-        buildDiscarder(logRotator(artifactDaysToKeepStr: '', daysToKeepStr: '', numToKeepStr: '5', artifactNumToKeepStr: '5'))
-        triggers {
-            githubPush()
         }
     }
 
