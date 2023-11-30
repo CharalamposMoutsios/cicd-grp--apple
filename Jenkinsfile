@@ -5,7 +5,7 @@ pipeline {
         stage('Clone repository') {
             steps {
                 script {
-                    git url: 'https://github.com/nackc8/cicd-grp--apple.git', branch: 'main' //, credentialsId: 'github-access-token-id' // this 'credentialId' was not needed since the repo is public
+                    git url: 'https://github.com/nackc8/cicd-grp--apple.git', branch: 'oskar' //, credentialsId: 'github-access-token-id' // this 'credentialId' was not needed since the repo is public
                 }
             }
         }
@@ -55,8 +55,11 @@ pipeline {
         stage('Run Pytest') {
             steps {
                 script {
-                    echo "Pytesting watched-url..."
-                    sh './pytest_step.sh'
+                    echo "Getting container ip & pytesting..."
+                    sh '''
+                    . ./get_container_ip.sh &&
+                    ./pytest_step.sh
+                    '''
                 }
             }
         }
