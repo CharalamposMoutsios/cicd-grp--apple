@@ -8,7 +8,7 @@ PingURL is a RESTful service designed to monitor and perform periodic checks on 
 
 - Python 3.10 or greater is required.
 
-### Getting Started
+### Getting Start ###
 
 #### VS Code Setup
 
