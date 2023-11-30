@@ -55,7 +55,9 @@ pipeline {
         stage('Run Pytest') {
             steps {
                 script {
-                    echo "Pytesting watched-url..."
+                    echo "Running get_container_ip.sh..."
+                    sh './get_container_ip.sh'
+                    echo "Pytesting..."
                     sh './pytest_step.sh'
                 }
             }
