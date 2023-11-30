@@ -1,7 +1,8 @@
+import os
 import requests
 
 
-API_URL = "http://172.18.0.3:5000"
+API_URL = f"http://{os.environ['CONTAINER_IP']}:5000"
 
 
 def test_set_watched_url():
