@@ -17,8 +17,13 @@ source venv/bin/activate
 # Installing requirements.txt
 pip install -r backend/requirements.txt
 
+echo "Running tests..."
+pytest ./backend/tests/test_api_endpoints.py
+pytest ./backend/tests/test_integration.py
+pytest ./backend/tests/models.py
+pytest ./backend/tests/test_ping.py
+pytest ./backend/tests/test_watchurl.py
+
 echo "Running test_api_req.py..."
 pytest ./backend/tests/test_api_req.py
 
-echo "Running other tests..."
-pytest ./backend/tests/test_*
