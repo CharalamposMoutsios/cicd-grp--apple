@@ -55,10 +55,11 @@ pipeline {
         stage('Run Pytest') {
             steps {
                 script {
-                    echo "Running get_container_ip.sh..."
-                    sh './get_container_ip.sh'
-                    echo "Pytesting..."
-                    sh './pytest_step.sh'
+                    echo "Getting container ip & pytesting..."
+                    sh '''
+                    . ./get_container_ip.sh &&
+                    ./pytest_step.sh
+                    '''
                 }
             }
         }
