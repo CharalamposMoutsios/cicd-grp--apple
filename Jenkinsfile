@@ -41,17 +41,6 @@ pipeline {
             }
         }
 
-        stage('Contacting pingurl server') {
-            steps {
-                script {
-                    // Debug step to check if connection is established to pingurl-server
-                    echo "Contacting pingurl..."
-                    sh 'hostname'
-                    sh 'curl pingurl-server.jenkins_jenkins_default:5000'
-                }
-            }
-        }
-
         stage('Run Pytest') {
             steps {
                 script {
